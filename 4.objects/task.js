@@ -19,21 +19,16 @@ Student.prototype.addMarks = function(...marks) {
 }
 
 Student.prototype.getAverage = function() {
-	if (this.hasOwnProperty(`marks`) === false || this.marks.length === 0) {
-		return 0;
+	if (!this.hasOwnProperty('marks') || !this.marks.length) {
+	return 0;
 	}
-	const gradePointAverage = this.marks.reduce((acc, mark, index, arr) => {
-		acc += mark;
-		if (index === arr.length - 1) {
-			return acc / arr.length;
-		}
-		return acc;
-	}, 0);
+	let gradePointAverage = this.marks.reduce((acc, mark) => acc + mark, 0);
+	gradePointAverage /= this.marks.length;
 	return gradePointAverage;
-}
-
-Student.prototype.exclude = function(reason) {
+   }
+   
+   Student.prototype.exclude = function(reason) {
+	this.excluded = reason;
 	delete this.subject;
 	delete this.marks;
-	this.excluded = reason;
-}
+   }
